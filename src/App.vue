@@ -1,13 +1,26 @@
 <template>
   <v-app>
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/login">Login</router-link>
-    </nav>
-    <router-view />
+    <app-header>
+      <AppHeader/>
+    </app-header>
+    <v-main>
+      <v-container>
+        <router-view /> 
+      </v-container>
+    </v-main>
   </v-app>
 </template>
+
+<script>
+import AppHeader from "@/components/AppHeader.vue"
+
+export default{
+  name: "App",
+  components : {
+    AppHeader,
+  }
+}
+</script>
 
 <style lang="scss">
 #app {

@@ -1,7 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
-import LoginView from "../views/LoginView.vue"
+// import { getAuth } from "firebase/auth"
+import HomeView from '@/views/HomeView.vue'
+import AboutView from '@/views/AboutView.vue'
+import SigninView from "@/views/SigninView.vue"
+import SignupView from "@/views/SignupView.vue"
+import PostView from "@/views/PostView.vue"
+import UserView from "@/views/user/UserView.vue"
 
 const routes = [
   {
@@ -12,15 +16,34 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: AboutView
   },
   {
-    path: "/login",
-    name: "login",
-    component: LoginView
+    path: "/signin",
+    name: "signin",
+    component: SigninView
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: SignupView
+  },
+  {
+    path: "/post",
+    name: "post",
+    component: PostView,
+    meta: {
+      requiresAuth: true
+    }
+  }
+  ,
+  {
+    path: "/user/setting",
+    name: "user",
+    component: UserView,
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
@@ -28,5 +51,26 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+//   let currentUser = getAuth().currentUser;
+//   if (currentUser) {
+//     if (to.name == "home" || to.name == "signin" || to.name =="signup") {
+//       next({
+//         path: '/post'
+//       })
+//     } 
+//   }
+//   else if (requiresAuth) {
+//     next({
+//       path: '/signin'
+//     })
+//   } else {
+//     next({
+//       path: '/'
+//     })
+//   }
+// })
 
 export default router
